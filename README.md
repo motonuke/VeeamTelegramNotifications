@@ -37,12 +37,20 @@ Unzip the archive and make sure the folder is called: `VeeamSlackNotifications`
 Invoke-WebRequest -Uri https://github.com/tigattack/VeeamSlackNotifications/archive/2.1.zip -OutFile C:\VeeamScripts\VeeamSlackNotifications-v1.0.zip
 ```
 
-Configure the project:
-
+#### Extract and clean up
 ```shell
-# Make a new config file
+Expand-Archive C:\VeeamScripts\VeeamSlackNotifications-v2.2.zip -DestinationPath C:\VeeamScripts
+Ren C:\VeeamScripts\VeeamSlackNotifications-2.2 C:\VeeamScripts\VeeamSlackNotifications
+rm C:\VeeamScripts\VeeamSlackNotifications-v2.2.zip
+```
+
+#### Configure the project:
+Make a new config file
+```shell
 cp C:\VeeamScripts\VeeamSlackNotifications\config\vsn.example.json C:\VeeamScripts\VeeamSlackNotifications\config\vsn.json
-# Edit your config file. You must replace the webhook field with your own slack url.
+```
+ Edit your config file. You must replace the webhook field with your own Slack url.
+ ```shell
 notepad.exe C:\VeeamScripts\VeeamSlackNotifications\config\vsn.json
 ```
 
