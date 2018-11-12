@@ -36,6 +36,10 @@ Unzip the archive and make sure the folder is called: `VeeamSlackNotifications`
 ```powershell
 Invoke-WebRequest -Uri https://github.com/tigattack/VeeamSlackNotifications/archive/2.1.zip -OutFile C:\VeeamScripts\VeeamSlackNotifications-v1.0.zip
 ```
+You may recieve an SSL error as winhttp uses TLS1 by default, which GitHub appears to no longer accept. IF you recieve this error, run the following and re-issue the above command.
+```powershell
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+```
 
 #### Extract and clean up
 ```shell
@@ -54,7 +58,7 @@ cp C:\VeeamScripts\VeeamSlackNotifications\config\vsn.example.json C:\VeeamScrip
 notepad.exe C:\VeeamScripts\VeeamSlackNotifications\config\vsn.json
 ```
 
-Finally open Veeam and configure your jobs. Edit them and click on the <img src="asset/img/screens/sh-3.png" height="20"> button.
+Finally, open Veeam and configure your jobs. Edit them and click on the <img src="asset/img/screens/sh-3.png" height="20"> button.
 
 Navigate to the "Scripts" tab and paste the following line the script that runs after the job is completed:
 
