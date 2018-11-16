@@ -9,9 +9,9 @@ Param(
 Import-Module "$PSScriptRoot\Helpers"
 
 # Get the config from our config file
-$config = (Get-Content "$PSScriptRoot\config\vsn.json") -Join "`n" | ConvertFrom-Json
+$config = (Get-Content "$PSScriptRoot\config\conf.json") -Join "`n" | ConvertFrom-Json
 
-# Should we log?
+# Log if enabled in config
 if($config.debug_log) {
 	Start-Logging "$PSScriptRoot\log\debug.log"
 }
@@ -113,7 +113,7 @@ switch ($Status) {
 }
 
 # Build the details string
-$details  = "Backup Size - " + [String]$JobSizeRound + " / Transferred Data - " + [String]$TransfSizeRound + " / Dedup Ratio - " + [String]$session.BackupStats.DedupRatio + " / Compress Ratio - " + [String]$session.BackupStats.CompressRatio + " / Duration - " + $Duration
+$details = "Backup Size - " + [String]$JobSizeRound + " / Transferred Data - " + [String]$TransfSizeRound + " / Dedup Ratio - " + [String]$session.BackupStats.DedupRatio + " / Compress Ratio - " + [String]$session.BackupStats.CompressRatio + " / Duration - " + $Duration
 
 # Build the payload
 $slackJSON = @{}
