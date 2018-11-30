@@ -9,87 +9,65 @@ Sends notifications from Veeam Backup & Restore to Slack
 ---
 ## [Discord Setup](https://blog.tiga.tech/veeam-b-r-notifications-in-discord/)
 
-## Slack Setup
+## Slack setup
+
+#### 1. Create destination directory
+
+We'll be using PowerShell to get started with this.
 
 Make a scripts directory: `C:\VeeamScripts`
 
-```powershell
-# To make the directory run the following command in PowerShell
+```PowerShell
 New-Item C:\VeeamScripts PowerShell -type directory
 ```
 
-#### Get code
+#### 2. Download the project
 
-Then clone this repository:
+There may be later releases so [take a look](https://github.com/tigattack/VeeamSlackNotifications/releases) and replace the version number in the commands below with the latest if applicable.
 
-```shell
-cd C:\VeeamScripts
-git clone https://github.com/tigattack/VeeamSlackNotifications.git
-cd VeeamSlackNotifications
-git checkout master
+Download the archive and rename it to something recognisable.
+```PowerShell
+Invoke-WebRequest -Uri https://github.com/tigattack/VeeamSlackNotifications/archive/2.4.zip -OutFile C:\VeeamScripts\VeeamSlackNotifications-2.4.zip
 ```
-
-Or without git:
-
-Download release, there may be later releases take a look and replace the version number with newer release numbers.
-Unzip the archive and make sure the folder is called: `VeeamSlackNotifications`
-```powershell
-Invoke-WebRequest -Uri https://github.com/tigattack/VeeamSlackNotifications/archive/2.1.zip -OutFile C:\VeeamScripts\VeeamSlackNotifications-v1.0.zip
-```
-You may recieve an SSL error as winhttp uses TLS1 by default in some case (depends on a few things), which GitHub appears to no longer accept. IF you recieve this error, run the following and re-issue the above command.
-```powershell
+You may recieve an SSL error as in some cases winhttp uses TLS1 by default (depends on a few things), and GitHub appears to no longer accept TLS1. If you receive this error, run the following command and then re-issue the above command.
+```PowerShell
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 ```
 
-#### Extract and clean up
-```shell
-Expand-Archive C:\VeeamScripts\VeeamSlackNotifications-v2.2.zip -DestinationPath C:\VeeamScripts
-Ren C:\VeeamScripts\VeeamSlackNotifications-2.2 C:\VeeamScripts\VeeamSlackNotifications
-rm C:\VeeamScripts\VeeamSlackNotifications-v2.2.zip
+#### 3. Extract and clean up
+```PowerShell
+Expand-Archive C:\VeeamScripts\VeeamSlackNotifications-2.4.zip -DestinationPath C:\VeeamScripts
+Ren C:\VeeamScripts\VeeamSlackNotifications-2.4 C:\VeeamScripts\VeeamSlackNotifications
+rm C:\VeeamScripts\VeeamSlackNotifications-v2.4.zip
 ```
 
-#### Prepare for use
-Make a new config file
-```shell
-cp C:\VeeamScripts\VeeamSlackNotifications\config\vsn.example.json C:\VeeamScripts\VeeamSlackNotifications\config\vsn.json
+#### 4. Prepare for use
+ Edit your config file. You must replace the webhook field with your own webhook.
+ ```PowerShell
+notepad.exe C:\VeeamScripts\VeeamSlackNotifications\config\conf.json
 ```
- Edit your config file. You must replace the webhook field with your own Slack url.
- ```shell
-notepad.exe C:\VeeamScripts\VeeamSlackNotifications\config\vsn.json
+You may also need to set your PowerShell execution policy to Unrestricted.
+```PowerShell
+Set-ExecutionPolicy Unrestricted
 ```
-Unblock the script files. Windows often blocks execution of downloaded scripts.
-```powershell
+If you don't want to do that, replace the script path in section 5 below with the following
+```PowerShell
+Powershell.exe -ExecutionPolicy Bypass -File C:\VeeamScripts\VeeamSlackNotifications\SlackNotificationBootstrap.ps1
+```
+
+Unblock the script files  if you're still having issues after setting the PowerShell execution policy. The reason you may need to do this is Windows often blocks execution of downloaded scripts.
+```PowerShell
 Unblock-File C:\VeeamScripts\VeeamSlackNotifications\SlackNotificationBootstrap.ps1
 Unblock-File C:\VeeamScripts\VeeamSlackNotifications\SlackVeeamAlertSender.ps1
 Unblock-File C:\VeeamScripts\VeeamSlackNotifications\Helpers\Helpers.psm1
 ```
-You may also need to set your PowerShell execution policy to Unrestricted if you're still having issues after unblocking the scripts. 
-```powershell
-Set-ExecutionPolicy Unrestricted
-```
 
-Finally, open Veeam and configure your jobs. Edit them and click on the <img src="asset/img/screens/sh-3.png" height="20"> button.
-
-Navigate to the "Scripts" tab and paste the following line the script that runs after the job is completed:
-
-```shell
-Powershell.exe -File C:\VeeamScripts\VeeamSlackNotifications\SlackNotificationBootstrap.ps1
-```
-
+#### 5. Configure in Veeam
+Repeat this for each job that you want to be reported into Slack.
+* Right click the job and click "Edit".
+* Go to the "Storage" section and click on the <img src="asset/img/screens/sh-3.png" height="20"> button.
+* Go to the "Scripts" tab and configure as shown below.
 ![screen](asset/img/screens/sh-1.png)
-
----
-
-## Example Configuration:
-
-Below is an example configuration file.
-
-```shell
-{
-	"webhook": "https://...",
-	"channel": "#veeam",
-	"service_name": "Veeam B&R",
-	"icon_url": "https://raw.githubusercontent.com/tigattack/VeeamSlackNotifications/master/asset/img/icon/VeeamB%26R.png",
-	"debug_log": false
-}
+```PowerShell
+Powershell.exe -File C:\VeeamScripts\VeeamSlackNotifications\SlackNotificationBootstrap.ps1
 ```
