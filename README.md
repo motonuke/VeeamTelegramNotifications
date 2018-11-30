@@ -11,9 +11,11 @@ Sends notifications from Veeam Backup & Restore to Slack
 
 ## Slack setup
 
-#### 1. Create destination directory
-
 We'll be using PowerShell to get started with this.
+
+Please connect to your Veeam server and open PowerShell as an administrator. I ask that you open PowerShell on your Veeam server as some of the instructions will not work over a remote PS session. You may use a remote PS session and adapt the instructions if you like, but I'm not responsible if you break anything (though that would be quite hard to do with what I'm telling you to do here).
+
+#### 1. Create destination directory
 
 Make a scripts directory: `C:\VeeamScripts`
 
@@ -38,7 +40,7 @@ You may recieve an SSL error as in some cases winhttp uses TLS1 by default (depe
 ```PowerShell
 Expand-Archive C:\VeeamScripts\VeeamSlackNotifications-2.4.zip -DestinationPath C:\VeeamScripts
 Ren C:\VeeamScripts\VeeamSlackNotifications-2.4 C:\VeeamScripts\VeeamSlackNotifications
-rm C:\VeeamScripts\VeeamSlackNotifications-v2.4.zip
+rm C:\VeeamScripts\VeeamSlackNotifications-2.4.zip
 ```
 
 #### 4. Prepare for use
