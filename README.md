@@ -5,8 +5,6 @@ Sends notifications from Veeam Backup & Restore to Slack
 ![Chat Example](https://raw.githubusercontent.com/tigattack/VeeamSlackNotifications/master/asset/img/screens/sh-2.png)
 
 ---
-## [Discord fork](https://github.com/tigattack/VeeamDiscordNotifications)
-## [MS Teams fork](https://github.com/tigattack/VeeamTeamsNotifications)
 
 ## Slack setup
 
