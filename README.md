@@ -35,7 +35,7 @@ Unblock-File C:\VeeamScripts\VeeamSlackNotifications\Helpers\Helpers.psm1
 I needed the ability to run more than 1 script for certain jobs, so I've added a [optional] PreScript and PostScript option that allows additional scripts to be ran as part of the Veeam Job Notification script option.
 
 ```PowerShell
-.\TelegramNotificationBootstrap.ps1 -PreScript "path_to_pre_script" -PostScript "path_to_post_script"
+.\TelegramNotificationBootstrap.ps1 -PreScript "c:\path\to\pre_script.ps1" -PostScript "c:\path\to\post_script.ps1"
 ```
 
 #### 3. Configure in Veeam
@@ -44,6 +44,7 @@ Repeat this for each job that you want to be reported into Telegram.
 * Go to the "Storage" section and click on the <img src="asset/img/screens/sh-3.png" height="20"> button.
 * Go to the "Scripts" tab and configure as shown below.
 ![screen](asset/img/screens/sh-1.png)
+
 ```PowerShell
 Powershell.exe -File C:\VeeamScripts\VeeamTelegramNotifications\TelegramNotificationBootstrap.ps1 -PostScript "c:\path\to\post_script.ps1"
 ```
