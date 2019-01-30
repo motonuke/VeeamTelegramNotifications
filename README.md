@@ -1,8 +1,6 @@
-# Veeam Backup and Restore Notifications for Slack
+# Veeam Backup and Restore Notifications for Telegram
 
-Sends notifications from Veeam Backup & Restore to Slack
-
-![Chat Example](https://raw.githubusercontent.com/tigattack/VeeamSlackNotifications/master/asset/img/screens/sh-2.png)
+Sends notifications from Veeam Backup & Restore to a Telegram bot
 
 ---
 
