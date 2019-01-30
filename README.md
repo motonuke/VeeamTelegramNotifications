@@ -12,7 +12,7 @@ Please setup this script to run locally, PS Remoting has not been tested.
 
 Clone or download the Repo to a local directory. 
 
-Edit your config file. You must replace the #### chat_id and #### MyToken with your own information.
+Edit your config file. You must replace the "chat_id" and "MyToken" with your own information. The "service_name" parameters allows your Telegram message title to be customized. This is useful in shared bot scenario.
  ```PowerShell
 notepad.exe C:\VeeamScripts\VeeamTelegramNotifications\config\conf.json
 ```
@@ -20,7 +20,7 @@ You may also need to set your PowerShell execution policy to Unrestricted.
 ```PowerShell
 Set-ExecutionPolicy Unrestricted
 ```
-If you don't want to do that, replace the script path in section 5 below with the following
+If you don't want to do that, replace the script path in section 3 below with the following
 ```PowerShell
 Powershell.exe -ExecutionPolicy Bypass -File C:\VeeamScripts\VeeamTelegramNotifications\SlackNotificationBootstrap.ps1
 ```
