@@ -38,7 +38,7 @@ I needed the ability to run more than 1 script for certain jobs, so I've added a
 .\TelegramNotificationBootstrap.ps1 -PreScript "c:\path\to\pre_script.ps1" -PostScript "c:\path\to\post_script.ps1"
 ```
 
-#### Please note, this script will not run stand alone, it relies on an active Veeam Job running to grab Job Stats
+#### Please note, this script will not run stand alone, it relies on an active Veeam Job running to grab that job's stats.
 
 #### 3. Configure in Veeam
 Repeat this for each job that you want to be reported into Telegram.
